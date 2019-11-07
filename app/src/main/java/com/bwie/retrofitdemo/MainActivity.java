@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .client(okHttpClient)//使用okhttp配置的所有功能，配置okhttp
                 .build();
 
-        //第二步：得到请求的url，比如登录url, 初始化接口管理类
+        //第二步：得到请求的url，比如登录url, 初始化接口管理类：动态代理模式
         ApiService apiService = retrofit.create(ApiService.class);
 
         //第三步，构建请求对象执行请求
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+//        apiService.login("","","").execute();
 
         apiService.login(Api.LOGIN_URL,"","").enqueue(new retrofit2.Callback<LoginUserEntity>() {
             @Override
@@ -142,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+//        apiService.loginRxjava(params).subscribe(new Consumer<LoginUserEntity>() {
+//            @Override
+//            public void accept(LoginUserEntity loginUserEntity) throws Exception {
+//
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//
+//            }
+//        });
 
     }
 }

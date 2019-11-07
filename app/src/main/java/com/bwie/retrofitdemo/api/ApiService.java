@@ -5,6 +5,8 @@ import com.bwie.retrofitdemo.entity.ProductEntity;
 
 import java.util.HashMap;
 
+import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -35,8 +37,14 @@ public interface ApiService {
     @GET(Api.LIST_URL)
     Call<ProductEntity> getProductList(@Query("keyword") String key, @Query("page") String page, @Query("count") String c);
 
-
     @GET("small/commodity/v1/findCommodityByKeyword")
     Call<ProductEntity> getProductList1(@QueryMap HashMap<String,String> params);
+
+    @GET("small/commodity/v1/findCommodityByKeyword")
+    Call<ResponseBody> getProductList2(@QueryMap HashMap<String,String> params);
+
+    @POST("")
+    @FormUrlEncoded
+    Observable<LoginUserEntity> loginRxjava(@FieldMap HashMap<String,String> params);
 
 }
